@@ -1,0 +1,36 @@
+{
+  "name": "booklibrary",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
+    "bkp": "sh scripts/db_backup.sh",
+    "clnDb": "sh scripts/cleanup_soft_deletes.sh",
+    "down": "sh scripts/run-migrations.sh",
+    "up": "sh scripts/rollback_migrations.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-basic-auth": "^1.2.1",
+    "express-static": "^1.2.6",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.12.0",
+    "mysqldump": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.10.6",
+    "globals": "^15.14.0",
+    "nodemon": "^3.1.9",
+    "prettier": "^3.4.2",
+    "ts-node-dev": "^2.0.0"
+  }
+}
