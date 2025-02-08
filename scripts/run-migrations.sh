@@ -7,7 +7,7 @@ DB_PASS=$(grep '^password' ~/.my.cnf | cut -d= -f2 | tr -d ' ')
 mysql -u $DB_USER -p$DB_PASS $DB_NAME < migrations/_migrations_history.sql
 
 # Get list of migrations
-MIGRATIONS=$(ls migrations/*.sql | grep -v _migrations_history.sql | sort)
+MIGRATIONS=$(ls migrations/up/*.sql | grep -v _migrations_history.sql | sort)
 
 for FILE in $MIGRATIONS; do
     # Check if migration already ran

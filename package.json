@@ -6,8 +6,8 @@
     "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
     "bkp": "sh scripts/db_backup.sh",
     "clnDb": "sh scripts/cleanup_soft_deletes.sh",
-    "down": "sh scripts/run-migrations.sh",
-    "up": "sh scripts/rollback_migrations.sh"
+    "up": "sh scripts/run-migrations.sh",
+    "down": "sh scripts/rollback_migrations.sh"
   },
   "author": "",
   "license": "ISC",
