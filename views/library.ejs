@@ -87,9 +87,10 @@
         </form>
     </div>
     <script>
-            console.log(<%=hide%>)
-            $('#<%=hide%>').hide()
-        
+                console.log(<%=hide%>)
+            <%if(hide){%>
+                $('#<%=hide%>').hide()
+            <%}%>
 
         $('#prev').on('click', async()=>{
             await fetch("http://localhost:3000",{

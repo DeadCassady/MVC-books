@@ -25,6 +25,11 @@ FROM books b
 JOIN authors a ON b.author = a.name;
 
 -- Remove old author column
-ALTER TABLE books DROP COLUMN author;
+-- ALTER TABLE books DROP COLUMN author;
+
+SELECT * FROM books;
+SELECT * FROM authors;
+SELECT * FROM books_authors;
+
 
 COMMIT;

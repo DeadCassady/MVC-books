@@ -38,6 +38,7 @@ const displayBooks = async (req: Request, res: Response) => {
     const offset = parseInt(req.query.offset as string);
     const books = await getBooks();
     if (offset && offset != pageParams.offset) {
+      pageParams.page = 1;
       pageParams.offset = offset as number;
       pageParams.maxPages = Math.ceil(books.length / pageParams.offset);
     }

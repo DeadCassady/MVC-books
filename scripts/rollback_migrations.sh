@@ -3,7 +3,7 @@
 DB_NAME=$(grep '^database' ~/.my.cnf | cut -d= -f2 | tr -d ' ')
 DB_USER=$(grep '^user' ~/.my.cnf | cut -d= -f2 | tr -d ' ')
 DB_PASS=$(grep '^password' ~/.my.cnf | cut -d= -f2 | tr -d ' ')
-FILE='./migrations/0001_rollback.sql'
+FILE='./drop_all.sql'
 
 # Create history table if not exists
 mysql -u $DB_USER -p$DB_PASS $DB_NAME < migrations/_migrations_history.sql
