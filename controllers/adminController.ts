@@ -69,7 +69,9 @@ exports.addBook = async (req: Request, res: Response) => {
     const fileName = req.file?.originalname;
     const allAuthors = authorString(author, author2, author3);
 
-    await addBookToDb(title, allAuthors, published, pages, fileName);
+    await addBookToDb(title, allAuthors, published, pages, fileName).catch(() =>
+      res.status(404)
+    );
 
     res.status(200).json({ status: "ok" });
   } catch (error) {
