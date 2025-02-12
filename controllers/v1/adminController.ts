@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-const { getBooks, setDeleted, addBookToDb } = require("../database/db");
+const { getBooks, setDeleted, addBookToDb } = require("../../database/db");
 
 const listConfig = {
   start: 0,

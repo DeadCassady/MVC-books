@@ -96,7 +96,12 @@
                     for(let i =0; i < books.length; i++){ 
                     const id = books[i].id
                     const clicks = books[i].clicks || 0
-                    const author = books[i].author || ''
+                    let author
+                    if(version == 'v1'){
+                        author  = books[i].author || ''
+                    }else if(version == 'v2'){
+                        author  = ''
+                    }
                     const year = books[i].year || ''
                     const title = books[i].title || ''
                     %>

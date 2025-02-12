@@ -22,14 +22,14 @@ const {
   turnThePage,
   getPage,
   updateClicks,
-} = require("../controllers/pageController");
+} = require("../controllers/v1/pageController");
 const {
   showPage,
   switchList,
   auth,
   softDel,
   addBook,
-} = require("../controllers/adminController");
+} = require("../controllers/v1/adminController");
 
 const router = express.Router();
 

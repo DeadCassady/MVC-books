@@ -5,7 +5,7 @@ const {
   searchBook,
   updateClicksInDb,
   updateViewsInDb,
-} = require("../database/db");
+} = require("../../database/db");
 
 const pageParams = {
   page: 1,
@@ -53,6 +53,7 @@ const displayBooks = async (req: Request, res: Response) => {
     }
 
     res.render("library", {
+      version: "v1",
       books: booksOnPage,
       hide: pageParams.hideButton,
     });
@@ -70,6 +71,7 @@ const displaySearched = async (req: Request, res: Response) => {
 
     if (bookSearched) {
       res.render("library", {
+        version: "v1",
         books: bookSearched,
         hide: "",
       });
@@ -100,6 +102,7 @@ exports.turnThePage = async (req: Request, res: Response) => {
   }
 
   res.render("library", {
+    version: "v1",
     books: booksOnPage,
     hide: pageParams.hideButton,
   });
