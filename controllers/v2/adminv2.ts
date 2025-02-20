@@ -1,0 +1,53 @@
+import { Request, Response, NextFunction } from "express";
+const {
+  getBooks,
+  setDeleted,
+  getAuthors,
+  addBookToDbV2,
+} = require("../../database/db");
+
+const listConfig = {
+  start: 0,
+  finish: 5,
+};
+
+exports.showPageV2 = async (req: Request, res: Response) => {
+  const books = await getBooks();
+  const authors = await getAuthors();
+  const booksDisplayed = books.slice(listConfig.start, listConfig.finish);
+
+  res.render("admin", {
+    version: "V2",
+    allBooks: booksDisplayed,
+    pages: books.length / 5,
+  });
+};
+
+exports.switchListV2 = async (req: Request, res: Response) => {
+  const { page } = req.body;
+
+  listConfig.start = 5 * (page - 1);
+  listConfig.finish = 5 * page;
+  res.redirect("/v2/admin");
+};
+
+exports.addBookV2 = async (req: Request, res: Response) => {
+  try {
+    const { title, author, author2, author3, published, pages } = JSON.parse(
+      req.body.metadata
+    );
+    const fileName = req.file?.originalname;
+
+    await addBookToDbV2(
+      title,
+      [author, author2, author3],
+      published,
+      pages,
+      fileName
+    ).catch(() => res.status(404));
+
+    res.status(200).json({ status: "ok" });
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+};

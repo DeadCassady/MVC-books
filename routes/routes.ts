@@ -34,15 +34,38 @@ const {
 const router = express.Router();
 
 //The library routes
-router.get("/", getBookPage);
-router.post("/", turnThePage);
-router.get("/book/:id", getPage);
-router.post("/book/:id", updateClicks);
+router.get("/v1", getBookPage);
+router.post("/v1", turnThePage);
+router.get("/v1/book/:id", getPage);
+router.post("/v1/book/:id", updateClicks);
 
 //admin routes
-router.get("/admin", auth, showPage);
-router.post("/admin", switchList);
-router.delete("/admin", softDel);
-router.post("/admin/newBook", upload.single("image"), addBook);
+router.get("/admin/v1", auth, showPage);
+router.post("/admin/v1", switchList);
+router.delete("/admin/v1", softDel);
+router.post("/admin/v1/newBook", upload.single("image"), addBook);
+
+const {
+  getBookPageV2,
+  turnThePageV2,
+  getPageV2,
+} = require("../controllers/v2/pageV2");
+const {
+  showPageV2,
+  switchListV2,
+  addBookV2,
+} = require("../controllers/V2/adminV2");
+
+//The library routes
+router.get("/v2", getBookPageV2);
+router.post("/v2", turnThePageV2);
+router.get("/v2/book/:id", getPageV2);
+router.post("/v2/book/:id", updateClicks);
+
+//admin routes
+router.get("/admin/v2", auth, showPageV2);
+router.post("/admin/v2", switchListV2);
+router.delete("/admin/v2", softDel);
+router.post("/admin/v2/newBook", upload.single("image"), addBookV2);
 
 module.exports = router;

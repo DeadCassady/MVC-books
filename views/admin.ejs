@@ -29,7 +29,7 @@
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="col-xs-5 col-sm-2 col-md-2 col-lg-2">
-                    <div id="logout" class="logo"><a href="http://localhost:3000/" class="navbar-brand"><span class="sh">Ш</span><span class="plus">++</span></a></div>
+                    <div id="logout" class="logo"><a href="http://localhost:3000/<%=version%>" class="navbar-brand"><span class="sh">Ш</span><span class="plus">++</span></a></div>
                 </div>
                 <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8">
                     <div class="main-menu">
@@ -63,7 +63,7 @@
                                 console.log("Logged out")
                             })
                             .fail(()=>{
-                                window.location = "http://localhost:3000"
+                                window.location = "http://localhost:3000/<%=version%>"
                             })
                         })
                     </script>
@@ -97,11 +97,7 @@
                     const id = books[i].id
                     const clicks = books[i].clicks || 0
                     let author
-                    if(version == 'v1'){
-                        author  = books[i].author || ''
-                    }else if(version == 'v2'){
-                        author  = ''
-                    }
+                    author  = books[i].author || author[i].name
                     const year = books[i].year || ''
                     const title = books[i].title || ''
                     %>
@@ -116,7 +112,7 @@
                         </tr>
                         <script>
                             $('#deleteBook<%=id%>').on('click', async()=>{
-                                await fetch("http://localhost:3000/admin",{
+                                await fetch("http://localhost:3000/admin/<%=version%>",{
                                     method:"DELETE",
                                     headers:{
                                         "Content-Type": 'application/json',
@@ -139,7 +135,7 @@
             <script>
                 $('#page<%=i+1%>').on('click', async()=>
                 {
-                    await fetch("http://localhost:3000/admin",{
+                    await fetch("http://localhost:3000/admin/<%=version%>",{
                         method:"POST",
                         headers:{
                             'Content-Type': 'application/json',
@@ -224,7 +220,7 @@
                 formData.append('metadata', JSON.stringify(jsonFormData))
 
              try{
-                const response = await fetch('http://localhost:3000/admin/newBook',{
+                const response = await fetch('http://localhost:3000/admin/<%=version%>/newBook',{
                     method:"POST",
                     body: formData,
                     headers:{

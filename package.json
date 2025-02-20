@@ -7,7 +7,7 @@
     "bkp": "sh scripts/db_backup.sh",
     "clnDb": "sh scripts/cleanup_soft_deletes.sh",
     "up": "sh scripts/run-migrations.sh",
-    "down": "sh scripts/rollback_migrations.sh"
+    "setup": "sh scripts/setup_db.sh"
   },
   "author": "",
   "license": "ISC",

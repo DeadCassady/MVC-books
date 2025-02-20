@@ -90,7 +90,6 @@ exports.setDeleted = async (id: number) => {
     [deletionDate, id]
   );
 
-  console.log(deletionDate);
 
   return "ok";
 };
@@ -109,5 +108,54 @@ exports.addBookToDb = async (
         VALUES ( ?, ?, ?, ?, ?)
     `,
     [title, author, year, pages, fileName]
+  );
+};
+
+//v2
+
+exports.getAuthor = async (id: number) => {
+  const [authorId] = await pool.query(
+    `
+      SELECT * FROM books_authors
+      WHERE book_id = ?
+    
+    `,
+    [id]
+  );
+  const [author] = await pool.query(
+    `
+    SELECT * FROM authors 
+    WHERE author_id = ?
+    `,
+    [authorId]
+  );
+
+  return author;
+};
+
+exports.getAuthors = async () => {
+  const [authors] = await pool.query(
+    `
+    SELECT * FROM authors 
+  
+  `
+  );
+  return authors;
+};
+
+exports.addBookToDbV2 = async (
+  title: string,
+  authors: string[],
+  year: number,
+  pages: number,
+  fileName: string
+) => {
+  await pool.query(
+    `
+        INSERT INTO ${dbUsed}
+        (title, year, pages, cover_name)
+        VALUES ( ?, ?, ?, ?)
+    `,
+    [title, year, pages, fileName]
   );
 };

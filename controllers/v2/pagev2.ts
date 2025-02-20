@@ -5,6 +5,8 @@ const {
   searchBook,
   updateClicksInDb,
   updateViewsInDb,
+  getAuthor,
+  getAuthors,
 } = require("../../database/db");
 
 const pageParams = {
@@ -24,7 +26,7 @@ function updateConfig() {
   pageConfig.finish = pageParams.offset * pageParams.page;
 }
 
-exports.getBookPage = async (req: Request, res: Response) => {
+exports.getBookPageV2 = async (req: Request, res: Response) => {
   if (req.query.search) {
     displaySearched(req, res);
   } else {
@@ -37,6 +39,7 @@ const displayBooks = async (req: Request, res: Response) => {
   try {
     const offset = parseInt(req.query.offset as string);
     const books = await getBooks();
+    const authors = await getAuthors();
     if (offset && offset != pageParams.offset) {
       pageParams.page = 1;
       pageParams.offset = offset as number;
@@ -53,10 +56,10 @@ const displayBooks = async (req: Request, res: Response) => {
     }
 
     res.render("library", {
-      version: "v1",
+      version: "v2",
       books: booksOnPage,
       hide: pageParams.hideButton,
-      authors: "",
+      authors: authors,
     });
   } catch {
     res.status(500);
@@ -69,13 +72,13 @@ const displaySearched = async (req: Request, res: Response) => {
     const result = req.query.search;
 
     const bookSearched = await searchBook(result);
-
+    const authors = await getAuthors();
     if (bookSearched) {
       res.render("library", {
-        version: "v1",
+        version: "v2",
         books: bookSearched,
         hide: "",
-        authors: "",
+        authors: authors,
       });
     } else {
       res.status(400).send(`The ${result} wasn't found`);
@@ -84,8 +87,9 @@ const displaySearched = async (req: Request, res: Response) => {
     res.status(500).send("Server error");
   }
 };
-exports.turnThePage = async (req: Request, res: Response) => {
+exports.turnThePageV2 = async (req: Request, res: Response) => {
   const books = await getBooks();
+  const authors = await getAuthors();
   const { result } = req.body;
   if (result == "prev" && pageParams.page > 1) {
     pageParams.page--;
@@ -104,24 +108,26 @@ exports.turnThePage = async (req: Request, res: Response) => {
   }
 
   res.render("library", {
-    version: "v1",
+    version: "v2",
     books: booksOnPage,
     hide: pageParams.hideButton,
+    authors: authors,
   });
 };
 
-exports.getPage = async (req: Request, res: Response) => {
+//function to show the book clicked
+exports.getPageV2 = async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id);
     await updateViewsInDb(id);
 
     const [book] = await getBook(id);
-
+    const [author] = await getAuthor(book.id);
     if (book) {
       res.render("book", {
         bookId: book.id,
         title: book.title,
-        author: book.author,
+        authors: author.name,
         year: book.year,
         pages: book.pages,
       });
@@ -129,18 +135,6 @@ exports.getPage = async (req: Request, res: Response) => {
       res.status(404).send("No such book");
     }
   } catch (Error) {
-    res.status(500).send("Server error");
-  }
-};
-
-exports.updateClicks = async (req: Request, res: Response) => {
-  try {
-    const { click, id } = req.body;
-    if (click) {
-      await updateClicksInDb(id);
-    }
-    res.send("Added to the wishlist!");
-  } catch {
     res.status(500).send("Server error");
   }
 };
