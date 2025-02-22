@@ -49,12 +49,12 @@ const {
   getBookPageV2,
   turnThePageV2,
   getPageV2,
-} = require("../controllers/v2/pageV2");
+} = require("../controllers/v2/pagev2");
 const {
   showPageV2,
   switchListV2,
   addBookV2,
-} = require("../controllers/V2/adminV2");
+} = require("../controllers/v2/adminv2");
 
 //The library routes
 router.get("/v2", getBookPageV2);

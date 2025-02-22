@@ -90,7 +90,6 @@ exports.setDeleted = async (id: number) => {
     [deletionDate, id]
   );
 
-
   return "ok";
 };
 
@@ -127,7 +126,7 @@ exports.getAuthor = async (id: number) => {
     SELECT * FROM authors 
     WHERE author_id = ?
     `,
-    [authorId]
+    [authorId.author_id]
   );
 
   return author;
@@ -141,6 +140,37 @@ exports.getAuthors = async () => {
   `
   );
   return authors;
+};
+
+exports.getBooksAuthors = async () => {
+  const [row] = await pool.query(
+    `
+    SELECT * FROM books_authors
+    `
+  );
+  return row;
+};
+
+exports.getRespectiveAuthors = async (bookId: number) => {
+  const [[row]] = await pool.query(
+    `SELECT * FROM books_authors
+    WHERE book_id = ?`,
+    [bookId]
+  );
+  const [[author]] = await pool.query(
+    `SELECT * FROM authors
+    WHERE id =?`,
+    [row.author_id]
+  );
+
+  // console.log(
+  //   `BookId: ${bookId},
+  //   AuthorId: ${row.author_id},
+  //   author:${author.id},
+  //   name:${author.name}`
+  // );
+
+  return author;
 };
 
 exports.addBookToDbV2 = async (

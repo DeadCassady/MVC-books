@@ -33,7 +33,7 @@
                 <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8">
                     <div class="main-menu">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <form  action='/' mehtod='GET' class="navbar-form navbar-right">
+                            <form  action='/<%=version%>/' mehtod='GET' class="navbar-form navbar-right">
                                 <div class="form-group">
                                     <!--search request with form-->
                                     <input type="text" id="search" name="search" placeholder="найти книгу" class="form-control">
@@ -61,7 +61,6 @@
                 for(let i = 0; i < books.length; i++){
                     const bookId = books[i].id
                     const author = books[i].author || authors[i].name
-                    console.log(author);
                     const title = books[i].title
                     const cover = books[i].cover_name||`${bookId}.jpg` 
                 %>

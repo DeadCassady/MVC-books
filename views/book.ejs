@@ -26,7 +26,7 @@
         <div class="container">
           <div class="col-xs-5 col-sm-2 col-md-2 col-lg-2">
             <div class="logo">
-              <a href="http://localhost:3000/" class="navbar-brand"
+              <a href="http://localhost:3000/<%=version%>" class="navbar-brand"
                 ><span class="sh">Ш</span><span class="plus">++</span></a
               >
             </div>
@@ -34,7 +34,11 @@
           <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8">
             <div class="main-menu">
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <form action="/" mehtod="GET" class="navbar-form navbar-right">
+                <form
+                  action="/<%=version%>"
+                  mehtod="GET"
+                  class="navbar-form navbar-right"
+                >
                   <div class="form-group">
                     <input
                       type="text"
@@ -80,13 +84,13 @@
           <script id="pattern" type="text/template">
             <div data-book-id="" class="book_item col-xs-6 col-sm-3 col-md-2 col-lg-2">
                 <div class="book">
-                    <a href="/book/<%= bookId%>"><img src="img/books/<%= bookId%>.jpg" alt="<%=title%>">
+                    <a href="<%=version%>/book/<%= bookId%>"><img src="img/books/<%= bookId%>.jpg" alt="<%=title%>">
                         <div data-title="<%title%>" class="blockI">
                             <div data-book-title="{title}" class="title size_text">{title}</div>
                             <div data-book-author="{author}" class="author">{author}</div>
                         </div>
                     </a>
-                    <a href="/book/<%= bookId%>">
+                    <a href="<%=version%>/book/<%= bookId%>">
                         <button type="button" class="details btn btn-success">Читать</button>
                     </a>
                 </div>
@@ -140,16 +144,19 @@
               </div>
               <script>
                 $("#wishButton").on("click", async () => {
-                  await fetch("http://localhost:3000/book/:<%=bookId%>", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      click: "Хочу читать",
-                      id: "<%=bookId%>",
-                    }),
-                  })
+                  await fetch(
+                    "http://localhost:3000/<%=version%>/book/:<%=bookId%>",
+                    {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        click: "Хочу читать",
+                        id: "<%=bookId%>",
+                      }),
+                    }
+                  )
                     .then((data) => data.text())
                     .then((data) => alert(data));
                 });

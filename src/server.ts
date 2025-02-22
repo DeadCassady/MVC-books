@@ -6,8 +6,11 @@ const routes = require("../routes/routes");
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/admin", express.static(path.join(__dirname, "public")));
-app.use("/book/:id", express.static(path.join(__dirname, "public")));
+app.use("/admin/v2", express.static(path.join(__dirname, "public")));
+app.use("/v2/book/:id", express.static(path.join(__dirname, "public")));
+
+app.use("/admin/v2", express.static(path.join(__dirname, "public")));
+app.use("/v2/book/:id", express.static(path.join(__dirname, "public")));
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));

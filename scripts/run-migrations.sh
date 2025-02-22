@@ -4,7 +4,7 @@ DB_USER=$(grep '^user' ~/.my.cnf | cut -d= -f2 | tr -d ' ')
 DB_PASS=$(grep '^password' ~/.my.cnf | cut -d= -f2 | tr -d ' ')
 
 # Create history table if not exists
-mysql -u $DB_USER -p$DB_PASS $DB_NAME < migrations/_migrations_history.sql
+# mysql -u $DB_USER -p$DB_PASS $DB_NAME < migrations/up/_migrations_history.sql
 
 # Get list of migrations
 MIGRATIONS=$(ls migrations/up/*.sql | grep -v _migrations_history.sql | sort)
